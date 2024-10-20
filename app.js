@@ -51,7 +51,21 @@ app.use(expressValidator({
         param : formParam,
         msg : msg,
         value : value
-
     };
 }
 }));
+
+//connect-flash middleware
+
+app.use(flash());
+app.use(function (req, res, next){
+res.locals.messages = require('express-messages')(req,res);
+next();
+});
+
+//define routes
+app.use('/', routes);
+app.use('/users', users);
+
+app.listen(3000);
+console.log(' user server Boom on port 3000')
